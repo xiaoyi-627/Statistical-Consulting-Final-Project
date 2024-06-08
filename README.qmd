@@ -1,0 +1,311 @@
+---
+title: "README"
+author: "Xiaoyi Wang"
+date: "2024-06-08"
+format: html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo = FALSE}
+pacman::p_load(
+  "gt",
+  "targets",
+  "tidyverse",
+  "quarto",
+  "readxl",
+  "skimr",
+  "ggrepel",
+  "pwr",
+  "ggResidpanel",
+  "lme4",
+  "lmerTest",
+  "merTools",
+  "harrypotter",
+  "ggplot2",
+  "showtext",
+  "patchwork"
+)
+```
+
+# Abstract
+
+This study explores the effect of treatment on the impact of growth factors on gene expression. The aim is to investigate the effect of the treatment 'Activating factor 42' on gene expression.
+
+The data used in this study was provided by Dr. Karl Berator. In this data, the new treatment 'Activating factor 42' and a placebo saline were applied to two cell lines ('Wild-type' and 'Cell-type 101') at varying concentrations of the growth factor, and gene expression values were recorded. This study involves data cleaning, exploratory data analysis (EDA), creating presentation slides based on EDA results, calculating the sample size needed for a linear regression of gene expression, and trying different mixed-effects models. The optimal mixed-effects model is selected through comparison and transformation. Following the ANOVA results, separate mixed-model analyses are conducted for the two cell lines.
+
+The results show a significantly different impact of 'Activating factor 42' on gene expression across different cell lines, which requires further exploration.
+
+# Data Cleaning
+
+-   **Date:** 2024-03-05
+
+The code used for data cleaning can be found at the following path.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+here::here("R/clean_wif_func.R")
+```
+
+Due to inconsistencies in the case of data names, the names of the two cell lines and the two treatments are standardized by converting them to lowercase and then capitalizing their first letters. Additionally, the name variable is cleaned to standardize the names.
+
+The cleaned data file can be found as follows.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(cleaned_wif)
+```
+
+The cleaned data file can also be found at the following path.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+here::here("data/2024-03-05-data.xlsx")
+```
+
+# EDA
+
+-   **Date:** 2024-03-07
+
+The code used for EDA can be found at the following path.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+here::here("R/EDA_wif_func.R")
+```
+
+## Data Structure
+
+By examining the cleaned data files and the various types of values contained within each character variable, we can understand the structure of the entire experimental data.
+
+The data consists of four variables: 'cell_line', 'treatment', 'name', 'conc', and 'gene_expression'.
+
+'cell_line': Two types of cell lines, referred to as 'Cell-type 101' and 'Wild-type'.
+
+'treatment': Two groups, designated as the 'Activating factor 42' group and the placebo group.
+
+'name': Each activation factor group or placebo group contains two subgroups represented by different names.
+
+'conc': Represents the concentration of growth factors, with concentrations ranging from 0 to 10 in increments of 1 for each subgroup.
+
+'gene_expression': The values of gene expression as the concentration varies within each subgroup.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(EDA_results_wif)[[1]]
+```
+
+## Data Summary
+
+Look at the summary of the data frame.
+
+As mentioned earlier, the data consists of 5 variables, with 'cell_line', 'treatment', and 'name' being character variables, while 'conc' and 'gene_expression' are numeric variables.
+
+For the numeric variables, the mean gene expression value is 14.31, with a standard deviation of 9.76. The minimum gene expression value is 2.58, with a maximum of 44.44.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(EDA_results_wif)[[2]]
+```
+
+## Data Subset Example
+
+By selecting a subset of the total data, we can gain a more direct understanding of the data.
+
+The table below displays the data for the subgroup named 'rjS' within the 'Activating factor 42' group in the 'Wild-type' cell line.
+
+The concentration of growth factors varies from 0 to 10 in increments of 1, corresponding to gene expression values ranging from 9.32 to 24.17.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(EDA_results_wif)[[3]]
+```
+
+## Bar Charts
+
+Look at the bar charts of the subgroups for two different types of cell line.
+
+For each subgroup, the concentration of growth factors varies from 0 to 10 in increments of 1, resulting in 11 observations per subgroup.
+
+With a total of 8 subgroups, there are 88 observations in total.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(EDA_results_wif)[[4]]
+```
+
+## Histograms
+
+Regarding the values of gene expression, histograms provide the most intuitive observation.
+
+From the histograms, the distribution of gene expression is unimodal and right-skewed.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(EDA_results_wif)[[5]]
+```
+
+## Relationship Plots
+
+### Relationship for Two Types of Cell Lines
+
+These two plots illustrate the relationship between concentration and gene expression for the 'Cell-type 101' and 'Wild-type' cell lines, respectively.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(EDA_results_wif)[[6]]
+tar_read(EDA_results_wif)[[7]]
+```
+
+### Relationship Across Different Treatments and Cell Lines
+
+This plot illustrates the trend of gene expression values varying with the concentration of growth factor.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(EDA_results_wif)[[8]]
+```
+
+# Relationship Plots for conference
+
+-   **Date:** 2024-04-04
+
+The code used for plotting the relationship plots for the conference can be found at the following path.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+here::here("R/conference_wif_func.R")
+```
+
+The TIFF file for the conference with Times New Roman font (9in x 6in) and a resolution of 500 can be found at the following path. The content shows the relationship between concentration and gene expression for the 'Cell-type 101' and 'Wild-type' cell lines, respectively.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+here::here("figs/conference_plot.tiff")
+```
+
+# Sample Size Calculation
+
+-   **Date:** 2024-05-20
+
+The code used for sample size calculation can be found at the following path.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+here::here("R/sample_size_wif_func.R")
+```
+
+We are going to do a linear regression of gene expression with the predictors concentration, cell age, treatment (two levels), cell type (two levels), and media (two levels). We have done a previous study and got an $R^2$ of 0.1 between the predictors and the response level. We want a power of 90% and a significance level of 0.05.
+
+We obtained a rounded sample size of 154.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(sample_size_results_wif)
+```
+
+# Model Fitting
+
+-   **Date:** 2024-05-30
+
+The code used for model fitting can be found at the following path.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+here::here("R/model_wif_func.R")
+```
+
+Because of the complexity of the data and the need to account for both fixed and random effects, linear mixed-effects models are employed to estimate fixed effects (i.e., cell_line, treatment, conc) and their interactions on the dependent variable (i.e., gene_expression), while statistically controlling for the random effects of names (random intercept, 1 \| name) on the dependent variable. Multiple models are run and the likelihood-ratio test is used to select the optimal combination of fixed effects fitted with maximum likelihood, while keeping the random effects structure the same.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(model_results_wif)[[1]][1]
+tar_read(model_results_wif)[[1]][2]
+tar_read(model_results_wif)[[1]][3]
+tar_read(model_results_wif)[[1]][4]
+```
+
+The results show that including an interaction term between treatment and concentration $(p < 0.001)$, and including interaction terms between cell line and treatment, between cell line and concentration, and an interaction term between cell line, treatment and concentration $(p < 0.001)$, significantly improve the fit of the model. Hence, the preferred model would be Model 4 with an three-way interaction term between cell line, treatment and concentration.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(model_results_wif)[[2]][1]
+```
+
+Then, use diagnostic plots to assess whether the model is appropriate. The residual plot shows a quadratic pattern.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(model_results_wif)[[3]][1]
+```
+
+Hence, the response variable is transformed using logarithmic transformation.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(model_results_wif)[[1]][5]
+```
+
+After transforming the response variable, the diagnostic plots are better. The residuals appear randomly scattered around zero without any clear patterns, suggesting that the model adequately captures the underlying structure of the data. Additionally, the Q-Q plot with bands shows that the residuals are approximately normally distributed, further confirming the appropriateness of the model.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(model_results_wif)[[3]][2]
+```
+
+Based on the ANOVA results, the three-way interaction term that includes the cell line is significant.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(model_results_wif)[[2]][2]
+```
+
+Since this study focuses on the effect of treatment on the effect of growth factor (reflected as concentration) on gene expression, and due to the significant three-way interaction, follow-up analyses will be separately applied to the 'Wild-type' cell line and the 'Cell-type 101' cell line.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(model_results_wif)[[1]][6]
+tar_read(model_results_wif)[[1]][7]
+```
+
+For the model for the 'Wild-type' cell line, the residuals appear randomly scattered around zero without any clear patterns, suggesting that the model adequately captures the underlying structure of the data. Additionally, the Q-Q plot with bands shows that the residuals are approximately normally distributed, further confirming the appropriateness of the model.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(model_results_wif)[[3]][3]
+```
+
+For the model for the 'Cell-type 101' cell line, the residuals exhibit a slight quadratic trend, indicating a potential nonlinearity that the current model does not fully capture. This suggests that while the model explains a significant portion of the variance, there may be room for improvement.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(model_results_wif)[[3]][4]
+```
+
+Based on the ANOVA results, for the 'Wild-type' cell line, each term is significant; for the 'Cell-type 101' cell line, both the concentration and the interaction between concentration and treatment are significant.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(model_results_wif)[[2]][3]
+tar_read(model_results_wif)[[2]][4]
+```
+
+The summary results for the model for 'Wild-type' cell line are presented below. The interaction term indicates that for the 'Activating factor 42' treatment, each unit increase in concentration increases the log-transformed gene expression by 0.144 $\mu g/ml$ more compared to treatment placebo $(p < 0.001)$.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(model_results_wif)[[4]]
+```
+
+The summary results for the model for 'Cell-type 101' cell line are presented below. The interaction term indicates that for the 'Activating factor 42' treatment, each unit increase in concentration decreases the log-transformed gene expression by 0.053 $\mu g/ml$ more compared to treatment placebo $(p < 0.05)$.
+
+```{r echo = FALSE, message=FALSE, warning = FALSE}
+tar_read(model_results_wif)[[5]]
+```
+
+# Summary
+
+-   **Date:** 2024-05-31
+
+This study explores the effect of treatment on the impact of the growth factor on gene expression, specifically focusing on the treatment 'Activating factor 42'. The results for the 'Wild-type' cell line indicate a significant increase of gene expression with increasing concentration. In contrast, the results for the 'Cell-type 101' cell line indicate a slight decrease of gene expression with increasing concentration. These findings highlight the differential significant impact of 'Activating factor 42' on gene expression across different cell lines, which needs further exploration.
+
+# Contact
+
+**Xiaoyi Wang**\
+Email: [a1871801\@adelaide.edu.au](mailto:a1871801@adelaide.edu.au)\
+Phone: +61 434 043 882
+
+# Supplementary Materials
+
+The presentation slides introducing the data based on EDA results can be found at the following path.
+
+```{r}
+here::here("slides/2024-03-20-slides.pptx")
+```
+
+The explanation of the sample size calculation for the linear regression model can be found at the following path.
+
+```{r}
+here::here("reports/2024-05-22-sample-size-report.pdf")
+```
+
+The report showing the model results, following the usual IMRaD format, can be found at the following path.
+
+```{r}
+here::here("reports/2024-05-24-IMRaD-report.html")
+```

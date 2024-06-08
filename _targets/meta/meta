@@ -1,0 +1,16 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
+.Random.seed|object|1740841c6197ee1c|||||||||||||||
+clean_wif|function|2d9c13d2ad225f47|||||||||||||||
+cleaned_wif|stem|b0946bdb93666ad4|72aa367427e9d4b8|0ec510f867a1177d|1724013970||t19880.063583845s|b5dedd2f9424cc10|729|rds|local|vector|||0.04||
+conference_plot|stem|c9beb5f0ff1dd982|69f172c490f5f297|f2f21a46cc5dc906|-1903181739||t19881.0947056834s|b1ad61a2429154ab|227325|rds|local|vector|||0.08||
+conference_wif|function|7effa08ed9880b2e|||||||||||||||
+EDA_results|stem||2332698fb594aa5b|404191d721436d18|1871515137||t19880.1064490837s||0|rds|local|vector|||0.07||path must be a string
+EDA_results_wif|stem|2c23f69663a65eaf|2332698fb594aa5b|efab413e676d2694|-1354818516||t19881.0946776551s|493654efd72b9655|333515|rds|local|vector|||0.19|Using size aesthetic for lines was deprecated in ggplot2 3.4.0.ℹ Please use linewidth instead.|
+EDA_wif|function|c10a91ce9e705bf9|||||||||||||||
+model_results_wif|stem|0b103b18fc12e7f0|e16ee1b9ada9c91c|a8a7cd28358ee255|-1489287119||t19881.094703778s|5934edd359b7a0de|2026673|rds|local|vector|||1.76|Since gt v0.3.0, columns  vars... has been deprecated. Please use columns  c... instead.. Since gt v0.3.0, columns  vars... has been deprecated. Please use columns  c... instead.. Since gt v0.3.0, columns  vars... has been deprecated. Please use columns  c... instead.. Since gt v0.3.0, columns  vars... has been deprecated. Please use columns  c... instead.|
+model_wif|function|599041b0bcdb76ae|||||||||||||||
+raw_wif|stem|91d64a38f374ea27|fa3d315771daa087|ef46db3751d8e999|-1490070855|raw-data/2024-03-04-WIF-tis4d.xlsx|t19879.2200559485s|9285fa335fabd7c5|7270|file|local|vector|||0.61|程辑包tidyverse是用R版本4.3.3 来建造的. 程辑包ggplot2是用R版本4.3.3 来建造的. 程辑包tibble是用R版本4.3.3 来建造的. 程辑包tidyr是用R版本4.3.3 来建造的. 程辑包readr是用R版本4.3.3 来建造的. 程辑包purrr是用R版本4.3.3 来建造的. 程辑包stringr是用R版本4.3.3 来建造的. 程辑包forcats是用R版本4.3.3 来建造的. 程辑包lubridate是用R版本4.3.3 来建造的. 程辑包gt是用R版本4.3.3 来建造的. 程辑包quarto是用R版本4.3.3 来建造的. 程辑包readxl是用R版本4.3.3 来建造的|
+readme|stem|ad6ab9a49d4d645e|edc09a7ed05d9461|074ae0c74e2e9169|980901812|readme.html*readme_files*readme.qmd|t19881.0831413304s|d7f6bd4e62853812|98282|file|local|vector|||12.04||
+README|stem|fee8b6d98e068fa7|8ffa788bc42947e2|ede5b5faeb6c82cb|1466784939|README.html*README_files*README.qmd|t19882.518373662s|6aa45be4ea3c02bc|99774|file|local|vector|||13.71||
+sample_size_results_wif|stem|d77b35b5d1dd5953|45b8b1087ab1a6a6|5f452bad8d0e67f2|-966009728||t19880.1248336683s|c9aaea90a821e608|53|rds|local|vector|||0.55|程辑包tidyverse是用R版本4.3.3 来建造的. 程辑包ggplot2是用R版本4.3.3 来建造的. 程辑包tibble是用R版本4.3.3 来建造的. 程辑包tidyr是用R版本4.3.3 来建造的. 程辑包readr是用R版本4.3.3 来建造的. 程辑包purrr是用R版本4.3.3 来建造的. 程辑包stringr是用R版本4.3.3 来建造的. 程辑包forcats是用R版本4.3.3 来建造的. 程辑包lubridate是用R版本4.3.3 来建造的. 程辑包gt是用R版本4.3.3 来建造的. 程辑包quarto是用R版本4.3.3 来建造的. 程辑包readxl是用R版本4.3.3 来建造的. 程辑包skimr是用R版本4.3.3 来建造的. 程辑包ggrepel是用R版本4.3.3 来建造的. 程辑包pwr是用R版本4.3.3 来建造的|
+sample_size_wif|function|4c0551a268d94a79|||||||||||||||
